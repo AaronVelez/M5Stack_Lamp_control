@@ -26,7 +26,7 @@ Adafruit_ADS1115 ads;
 #include "FreeSans6pt7b.h"
 #include "FreeSans7pt7b.h"
 #include "FreeSans8pt7b.h"
-#include "FreeSans9pt7b.h"
+//#include "FreeSans9pt7b.h"
 #include "FreeSans10pt7b.h"
 #include "FreeSans15pt7b.h"
 #include "FreeSans20pt7b.h"
@@ -39,29 +39,35 @@ Adafruit_ADS1115 ads;
 
 ////// Constants
 // LED Temp
-const float Max_LED_Temp = 65;
-const float Min_LED_Temp = 25;
+const float Max_LED_Temp = 55;
+const float Min_LED_Temp = 15;
 // Thermistor
 const float Ref_voltage = 3.3;  // Thermistor excitation voltage
 const float Nom_R = 10;      // Nominal thermistor resistance in kohms at 25°C
 const float Div_R = 3.32;
 // Fan Speed
 const float Fan_max_rpm = 3000 * 1.15;    // Nominal max fan speed plus 15 % tolerance
-
+// Non-linear voltage Temp control (due to zener diode)
+const float a = 1.1;
 
 
 ////// Measured instantaneous variables
+float LampCtrlSum = 0;
 float LampCtrlVolt = 0;     // ads 0
-float LampCtrlPct = 0;
+float LampCtrlPct = 0;      // Perecentage
 
+float TempCtrlSum = 0;
 float TempCtrlVolt = 0;     // ads 1
 float LampCtrl = 0;
+float TempCtrlTrinketVolt = 0;
 float TempCtrlCDeg = 0;
 
+float LampTempSum = 0;
 float LampTempVolt = 0;     // ads 2
 float Thermistor_R = 0;
 float LampTempCDeg = 0;
 
+float FanSpeedSum = 0;
 float FanSpeedVolt = 0;     // ads 3
 float FanSpeedRPM = 0;
 
@@ -82,6 +88,8 @@ void setup() {
     M5.Lcd.println(F("M5 started"));
 
     ////// Use Adafruit ADS1115 library and DFRobot ADS1115 board
+    M5.Lcd.println();
+    M5.Lcd.println(F("Check that ADC address switch is set to 0x48"));
     ads.begin(0x48);
     ads.setDataRate(RATE_ADS1115_8SPS);
     ads.setGain(GAIN_TWOTHIRDS);
@@ -96,11 +104,15 @@ void setup() {
 void loop() {
     ////// Read analog LED intensity control
     LampCtrlVolt = ads.computeVolts(ads.readADC_SingleEnded(0));
-    LampCtrlPct = (LampCtrlVolt * 100) / 5;
+    LampCtrlPct = min( ((LampCtrlVolt * 100) / 5), 100);
 
     ////// Read analog Heatsink Temperatre control
-    TempCtrlVolt = ads.computeVolts(ads.readADC_SingleEnded(1));
-    TempCtrlCDeg = Min_LED_Temp + ((TempCtrlVolt / 1) * (Max_LED_Temp / 3.3));
+    TempCtrlVolt = ads.computeVolts(ads.readADC_SingleEnded(1));    // Read voltage (0-5 V)
+    TempCtrlTrinketVolt = ;     //
+    TempCtrlCDeg = ;            // Convert control voltage (0-5 v range) to control temperautre
+
+    // TempCtrlCDeg = min( Min_LED_Temp + (((Max_LED_Temp - Min_LED_Temp) / 3.3) * TempCtrlVolt),
+                        Max_LED_Temp);
 
     ////// Read heatsink Temp analog signal
     LampTempVolt = ads.computeVolts(ads.readADC_SingleEnded(2));
@@ -112,10 +124,10 @@ void loop() {
     FanSpeedRPM = (FanSpeedVolt * Fan_max_rpm) / 3.3;
 
     ////// Print to LCD
-    LampCtrlRGB = round((LampCtrlPct * 255) / 100));
-    TempCtrlRGB = round((TempCtrlCDeg * 255) / 100));
-    LampTempRGB = round((LampTempCDeg * 255) / 100));
-    FanSpeedRGB = round((FanSpeedRPM * 255) / Fan_max_rpm));
+    LampCtrlRGB = round((LampCtrlPct * 255) / 100);
+    TempCtrlRGB = round((TempCtrlCDeg * 255) / 100);
+    LampTempRGB = round((LampTempCDeg * 255) / 100);
+    FanSpeedRGB = round((FanSpeedRPM * 255) / Fan_max_rpm);
 
     // Top Left
     M5.Lcd.fillRect(0, 0, 160, 120, M5.Lcd.color565(LampCtrlRGB, LampCtrlRGB, 0));

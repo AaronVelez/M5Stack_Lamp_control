@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Main",
+    "\\Test_LCD"
   ],
+  "SelectedNode": "\\Main\\Main.sln",
   "PreviewInSolutionExplorer": false
 }

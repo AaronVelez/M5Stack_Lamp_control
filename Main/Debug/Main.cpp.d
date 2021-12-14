@@ -279,4 +279,11 @@ C:\Users\aivel\AppData\Local\Temp\VMBuilds\Main\ESP32_~1\Debug\Main.cpp.o: \
  C:\Users\aivel\AppData\Local\ARDUIN~1\packages\esp32\hardware\esp32\10A26C~1.5\cores\esp32/Udp.h \
  C:\Users\aivel\AppData\Local\ARDUIN~1\packages\esp32\hardware\esp32\10A26C~1.5\cores\esp32/cbuf.h \
  C:\Users\aivel\DOCUME~1\Arduino\LIBRAR~1\AD7590~1/Adafruit_ADS1X15.h \
- C:\Users\aivel\DOCUME~1\Arduino\LIBRAR~1\ADAFRU~3/Adafruit_I2CDevice.h
+ C:\Users\aivel\DOCUME~1\Arduino\LIBRAR~1\ADAFRU~3/Adafruit_I2CDevice.h \
+ C:\Users\aivel\AppData\Local\Temp\VMBuilds\Main\esp32_m5stack-core-esp32\Debug\FreeSans5pt7b.h \
+ C:\Users\aivel\AppData\Local\Temp\VMBuilds\Main\esp32_m5stack-core-esp32\Debug\FreeSans6pt7b.h \
+ C:\Users\aivel\AppData\Local\Temp\VMBuilds\Main\esp32_m5stack-core-esp32\Debug\FreeSans7pt7b.h \
+ C:\Users\aivel\AppData\Local\Temp\VMBuilds\Main\esp32_m5stack-core-esp32\Debug\FreeSans8pt7b.h \
+ C:\Users\aivel\AppData\Local\Temp\VMBuilds\Main\esp32_m5stack-core-esp32\Debug\FreeSans10pt7b.h \
+ C:\Users\aivel\AppData\Local\Temp\VMBuilds\Main\esp32_m5stack-core-esp32\Debug\FreeSans15pt7b.h \
+ C:\Users\aivel\AppData\Local\Temp\VMBuilds\Main\esp32_m5stack-core-esp32\Debug\FreeSans20pt7b.h
