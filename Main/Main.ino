@@ -112,7 +112,8 @@ void loop() {
 
     ////// Read analog Heatsink Temperatre control
     TempCtrlVolt = ads.computeVolts(ads.readADC_SingleEnded(1));    // Read voltage (0-5 V)
-    TempCtrlTrinketVolt = min(-a*sq(TempCtrlVolt)+b*TempCtrlVolt-c,-d*sq(TempCtrlVolt)+e*TempCtrlVolt+f);     //
+    TempCtrlVoltSquare = sq(TempCtrlVolt)
+    TempCtrlTrinketVolt = min(-a*TempCtrlVoltSquare+b*TempCtrlVolt-c,-d*TempCtrlVoltSquare+e*TempCtrlVolt+f);     //
     TempCtrlCDeg = Min_LED_Temp+(((Max_LED_Temp-Min_LED_Temp)/1.22)*TempCtrlTrinketVolt);            // Convert control voltage (0-5 v range) to control temperautre
 
     // TempCtrlCDeg = min( Min_LED_Temp + (((Max_LED_Temp - Min_LED_Temp) / 3.3) * TempCtrlVolt),
