@@ -43,13 +43,17 @@ const float Max_LED_Temp = 55;
 const float Min_LED_Temp = 15;
 // Thermistor
 const float Ref_voltage = 3.3;  // Thermistor excitation voltage
-const float Nom_R = 10;      // Nominal thermistor resistance in kohms at 25°C
+const float Nom_R = 10;      // Nominal thermistor resistance in kohms at 25Â°C
 const float Div_R = 3.32;
 // Fan Speed
 const float Fan_max_rpm = 3000 * 1.15;    // Nominal max fan speed plus 15 % tolerance
 // Non-linear voltage Temp control (due to zener diode)
-const float a = 1.1;
-
+const float a = 0.0599;
+const float b = 0.9959;
+const float c = 0.0031;
+const float d = 0.0096:
+const float e = 0.1413
+const float f = 0.7494
 
 ////// Measured instantaneous variables
 float LampCtrlSum = 0;
@@ -108,8 +112,8 @@ void loop() {
 
     ////// Read analog Heatsink Temperatre control
     TempCtrlVolt = ads.computeVolts(ads.readADC_SingleEnded(1));    // Read voltage (0-5 V)
-    TempCtrlTrinketVolt = ;     //
-    TempCtrlCDeg = ;            // Convert control voltage (0-5 v range) to control temperautre
+    TempCtrlTrinketVolt = min(-a*sq(TempCtrlVolt)+b*TempCtrlVolt-c,-d*sq(TempCtrlVolt)+e*TempCtrlVolt+f);     //
+    TempCtrlCDeg = Min_LED_Temp+(((Max_LED_Temp-Min_LED_Temp)/1.22)*TempCtrlTrinketVolt);            // Convert control voltage (0-5 v range) to control temperautre
 
     // TempCtrlCDeg = min( Min_LED_Temp + (((Max_LED_Temp - Min_LED_Temp) / 3.3) * TempCtrlVolt),
                         Max_LED_Temp);
