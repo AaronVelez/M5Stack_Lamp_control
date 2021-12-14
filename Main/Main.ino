@@ -62,6 +62,7 @@ float LampCtrlPct = 0;      // Perecentage
 
 float TempCtrlSum = 0;
 float TempCtrlVolt = 0;     // ads 1
+float TempCtrlVoltSquare=0; 
 float LampCtrl = 0;
 float TempCtrlTrinketVolt = 0;
 float TempCtrlCDeg = 0;
