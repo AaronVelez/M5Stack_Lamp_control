@@ -114,7 +114,6 @@ void loop() {
     TempCtrlTrinketVolt =-e*TempCtrlVoltSquare+f*TempCtrlVolt-g;     //
     TempCtrlCDeg = Min_LED_Temp+(((Max_LED_Temp-Min_LED_Temp)/3.3)*TempCtrlTrinketVolt);            // Convert control voltage (0-5 v range) to control temperautre
 
-    // TempCtrlCDeg = min( Min_LED_Temp + (((Max_LED_Temp - Min_LED_Temp) / 3.3) * TempCtrlVolt), Max_LED_Temp);
 
     ////// Read heatsink Temp analog signal
     LampTempVolt = ads.computeVolts(ads.readADC_SingleEnded(2));
